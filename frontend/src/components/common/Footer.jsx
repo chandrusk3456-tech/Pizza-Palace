@@ -53,11 +53,11 @@ const Footer = () => {
             <ul className="flex flex-col gap-4 text-sm text-neutral-400 font-medium">
               <li className="flex gap-3">
                 <FiMapPin className="text-primary text-lg shrink-0 mt-0.5" />
-                <span>456 Chef Lane, Pizza District, London, EC1A 1BB</span>
+                <span>No.55, Aditya Arcade, Kamaraj Avenue, Parameswari Nagar 1st St, Kasturba Nagar, Chennai, Tamil Nadu 600020</span>
               </li>
               <li className="flex gap-3">
                 <FiPhone className="text-primary text-lg shrink-0" />
-                <span>+44 20 7946 0958</span>
+                <span>+91 6382371831</span>
               </li>
               <li className="flex gap-3">
                 <FiMail className="text-primary text-lg shrink-0" />

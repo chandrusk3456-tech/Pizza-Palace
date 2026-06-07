@@ -22,7 +22,7 @@ const Home = () => {
             <span className="text-primary">Perfect Slice?</span>
           </h1>
           <p className="text-neutral-500 text-sm sm:text-lg leading-relaxed max-w-xl font-medium">
-            Hand-stretched sourdough, house-simmered San Marzano tomato sauce, and local premium toppings. Baked at 450°C to bubbly, blistered perfection.
+            Order pizza, pasta, sandwiches & more online for carryout or delivery from Pizza-Palace. View menu, find locations, track orders. Sign up Pizza_palace email ...
           </p>
           <div className="flex flex-wrap gap-4 mt-2">
             <Link 
@@ -136,8 +136,8 @@ const Home = () => {
             <div className="w-16 h-16 rounded-3xl bg-primary/5 flex items-center justify-center text-primary text-3xl mb-6 shadow-inner">
               <FiAward />
             </div>
-            <h4 className="font-extrabold text-lg text-neutralDark mb-2">Artisanal Pizzaiolos</h4>
-            <p className="text-neutral-500 text-sm leading-relaxed font-medium">Our pizzas are hand-stretched and prepped by certified pizzaiolos with decades of experience.</p>
+            <h4 className="font-extrabold text-lg text-neutralDark mb-2">Artificial Pizza</h4>
+            <p className="text-neutral-500 text-sm leading-relaxed font-medium">Our pizzas are hand-stretched and prepared by certified pizza with decades of experience.</p>
           </div>
           {/* Card */}
           <div className="flex flex-col items-center text-center p-4">
@@ -170,7 +170,7 @@ const Home = () => {
       <section className="bg-neutralDark text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-lg mx-auto mb-16">
-            <span className="text-secondary font-extrabold text-xs uppercase tracking-widest">Testimonials</span>
+            <span className="text-secondary font-extrabold text-xs uppercase tracking-widest">Customers Reviews</span>
             <h2 className="text-3xl font-extrabold text-neutral-100 mt-2">What Our Customers Say</h2>
           </div>
 
