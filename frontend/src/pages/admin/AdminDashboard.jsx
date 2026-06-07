@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { Link } from 'react-router-dom';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import RevenueChart from '../../components/admin/RevenueChart';
@@ -14,7 +14,7 @@ const AdminDashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/orders/stats/dashboard');
+      const { data } = await api.get('/orders/stats/dashboard');
       setStats(data.summary);
       setRecentOrders(data.recentOrders);
       setDailySales(data.dailySales);

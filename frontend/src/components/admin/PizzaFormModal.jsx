@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiPlus, FiTrash2, FiLoader } from 'react-icons/fi';
-import axios from 'axios';
+import api from '../../utils/api';
 import { useToast } from '../../context/ToastContext';
 
 const PizzaFormModal = ({ isOpen, onClose, pizza, onSaved }) => {
@@ -89,11 +89,11 @@ const PizzaFormModal = ({ isOpen, onClose, pizza, onSaved }) => {
 
       if (pizza) {
         // Edit mode
-        await axios.put(`http://localhost:5000/api/pizzas/${pizza._id}`, pizzaPayload);
+        await api.put(`/pizzas/${pizza._id}`, pizzaPayload);
         addToast('Pizza details updated!', 'success');
       } else {
         // Add mode
-        await axios.post('http://localhost:5000/api/pizzas', pizzaPayload);
+        await api.post('/pizzas', pizzaPayload);
         addToast('New Pizza added to menu!', 'success');
       }
 

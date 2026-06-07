@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiClock, FiCheck, FiTruck, FiShoppingBag, FiChevronDown, FiChevronUp, FiRefreshCw, FiDollarSign } from 'react-icons/fi';
 import { useToast } from '../context/ToastContext';
@@ -18,7 +18,7 @@ const OrderHistory = () => {
   // Fetch orders from API
   const fetchOrders = async (showToast = false) => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/orders/my-orders');
+      const { data } = await api.get('/orders/my-orders');
       setOrders(data);
       
       // Auto expand highlighted or newest order

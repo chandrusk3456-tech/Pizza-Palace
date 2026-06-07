@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useSearchParams } from 'react-router-dom';
 import PizzaCard from '../components/pizza/PizzaCard';
 import CustomizationModal from '../components/pizza/CustomizationModal';
@@ -35,7 +35,7 @@ const Menu = () => {
     const fetchPizzas = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/pizzas`, {
+        const { data } = await api.get('/pizzas', {
           params: { category, search, sort }
         });
         setPizzas(data);

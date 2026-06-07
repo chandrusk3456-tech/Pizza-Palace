@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { motion } from 'framer-motion';
 import { FiStar, FiShoppingCart, FiMinus, FiPlus, FiArrowLeft, FiAlertCircle } from 'react-icons/fi';
 import { useCart } from '../context/CartContext';
@@ -31,7 +31,7 @@ const PizzaDetail = () => {
     const fetchPizzaData = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/pizzas/${id}`);
+        const { data } = await api.get(`/pizzas/${id}`);
         setPizza(data);
         setSize('medium');
         setCrust('thin');
@@ -40,7 +40,7 @@ const PizzaDetail = () => {
         setError('');
 
         // Fetch recommendations (same category, different id)
-        const recResponse = await axios.get(`http://localhost:5000/api/pizzas`, {
+        const recResponse = await api.get(`/pizzas`, {
           params: { category: data.category }
         });
         setRecommendations(recResponse.data.filter(p => p._id !== data._id).slice(0, 4));

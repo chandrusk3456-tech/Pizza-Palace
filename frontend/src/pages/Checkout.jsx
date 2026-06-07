@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
@@ -138,7 +138,7 @@ const Checkout = () => {
         await new Promise(resolve => setTimeout(resolve, 8000 * 0.1)); // quick mock delay
       }
 
-      const { data } = await axios.post('http://localhost:5000/api/orders', orderPayload);
+      const { data } = await api.post('/orders', orderPayload);
       
       clearCart();
       addToast('Order placed successfully!', 'success');

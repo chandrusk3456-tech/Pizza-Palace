@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const AuthContext = createContext(null);
-
-const API_URL = 'https://pizza-palace-backend-q5wp.onrender.com';
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -15,49 +13,38 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [loading, setLoading] = useState(true);
 
-  // Configure global axios headers
-  useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      localStorage.setItem('token', token);
-    } else {
-      delete axios.defaults.headers.common['Authorization'];
-      localStorage.removeItem('token');
-    }
-  }, [token]);
-
-  // Load user details if token exists
+  // Load user details if token exists in localStorage
   useEffect(() => {
     const loadUser = async () => {
+      const token = localStorage.getItem('token');
       if (!token) {
         setUser(null);
         setLoading(false);
         return;
       }
       try {
-        const { data } = await axios.get(`${API_URL}/auth/profile`);
+        const { data } = await api.get('/auth/profile');
         setUser(data);
       } catch (error) {
         console.error('Failed to load user profile', error);
         // Token expired or invalid
-        setToken('');
+        localStorage.removeItem('token');
         setUser(null);
       } finally {
         setLoading(false);
       }
     };
     loadUser();
-  }, [token]);
+  }, []);
 
   // Login handler
   const login = async (email, password) => {
     setLoading(true);
     try {
-      const { data } = await axios.post(`${API_URL}/auth/login`, { email, password });
-      setToken(data.token);
+      const { data } = await api.post('/auth/login', { email, password });
+      localStorage.setItem('token', data.token);
       setUser({
         _id: data._id,
         name: data.name,
@@ -78,8 +65,8 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password) => {
     setLoading(true);
     try {
-      const { data } = await axios.post(`${API_URL}/auth/register`, { name, email, password });
-      setToken(data.token);
+      const { data } = await api.post('/auth/register', { name, email, password });
+      localStorage.setItem('token', data.token);
       setUser({
         _id: data._id,
         name: data.name,
@@ -98,17 +85,16 @@ export const AuthProvider = ({ children }) => {
 
   // Logout handler
   const logout = () => {
-    setToken('');
-    setUser(null);
     localStorage.removeItem('token');
+    setUser(null);
   };
 
   // Update profile
   const updateProfile = async (profileData) => {
     try {
-      const { data } = await axios.put(`${API_URL}/auth/profile`, profileData);
+      const { data } = await api.put('/auth/profile', profileData);
       if (data.token) {
-        setToken(data.token);
+        localStorage.setItem('token', data.token);
       }
       setUser({
         _id: data._id,
@@ -127,7 +113,7 @@ export const AuthProvider = ({ children }) => {
   // Address operations
   const addAddress = async (addressData) => {
     try {
-      const { data } = await axios.post(`${API_URL}/auth/address`, addressData);
+      const { data } = await api.post('/auth/address', addressData);
       setUser((prev) => ({ ...prev, addresses: data }));
       return { success: true };
     } catch (error) {
@@ -138,7 +124,7 @@ export const AuthProvider = ({ children }) => {
 
   const deleteAddress = async (addressId) => {
     try {
-      const { data } = await axios.delete(`${API_URL}/auth/address/${addressId}`);
+      const { data } = await api.delete(`/auth/address/${addressId}`);
       setUser((prev) => ({ ...prev, addresses: data }));
       return { success: true };
     } catch (error) {
@@ -149,7 +135,7 @@ export const AuthProvider = ({ children }) => {
 
   const setDefaultAddress = async (addressId) => {
     try {
-      const { data } = await axios.put(`${API_URL}/auth/address/${addressId}/default`);
+      const { data } = await api.put(`/auth/address/${addressId}/default`);
       setUser((prev) => ({ ...prev, addresses: data }));
       return { success: true };
     } catch (error) {
@@ -164,7 +150,6 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{
       user,
-      token,
       loading,
       isAuthenticated,
       isAdmin,

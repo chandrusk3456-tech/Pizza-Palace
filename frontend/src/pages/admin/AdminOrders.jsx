@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import Loader from '../../components/common/Loader';
 import { useToast } from '../../context/ToastContext';
@@ -16,7 +16,7 @@ const AdminOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/orders');
+      const { data } = await api.get('/orders');
       setOrders(data);
     } catch (error) {
       addToast('Failed to fetch orders list', 'error');
@@ -32,7 +32,7 @@ const AdminOrders = () => {
 
   const handleUpdateStatus = async (orderId, newStatus) => {
     try {
-      const { data } = await axios.put(`http://localhost:5000/api/orders/${orderId}/status`, {
+      const { data } = await api.put(`/orders/${orderId}/status`, {
         status: newStatus
       });
 

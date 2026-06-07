@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import PizzaFormModal from '../../components/admin/PizzaFormModal';
 import Loader from '../../components/common/Loader';
@@ -18,7 +18,7 @@ const AdminPizzas = () => {
   const fetchPizzas = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('http://localhost:5000/api/pizzas');
+      const { data } = await api.get('/pizzas');
       setPizzas(data);
     } catch (error) {
       addToast('Failed to fetch pizza catalog', 'error');
@@ -35,7 +35,7 @@ const AdminPizzas = () => {
   const handleToggleAvailability = async (pizza) => {
     try {
       const updatedVal = !pizza.isAvailable;
-      const { data } = await axios.put(`http://localhost:5000/api/pizzas/${pizza._id}`, {
+      const { data } = await api.put(`/pizzas/${pizza._id}`, {
         isAvailable: updatedVal
       });
 
@@ -54,7 +54,7 @@ const AdminPizzas = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:5000/api/pizzas/${pizzaId}`);
+      await api.delete(`/pizzas/${pizzaId}`);
       setPizzas(prev => prev.filter(p => p._id !== pizzaId));
       addToast(`"${pizzaName}" deleted from menu`, 'info');
     } catch (error) {
