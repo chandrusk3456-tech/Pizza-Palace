@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #C0392B;
+  --color-primary-dark: #962D22;
+  --color-primary-light: #FDEDEC;
+  
+  --color-secondary: #E67E22;
+  --color-secondary-dark: #CA6F1E;
+  --color-secondary-light: #FDF2E9;
+  
+  --color-neutralDark: #1C1C1C;
+  --color-neutralDark-light: #2C2C2C;
+  --color-neutralDark-lighter: #3D3D3D;
+  
+  --color-neutralLight: #F8F9FA;
+  --color-neutralLight-dark: #EAECEE;
+
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-neutralLight text-neutralDark font-sans antialiased overflow-x-hidden;
+    background-color: #F8F9FA;
+  }
+}
+
+/* Glassmorphism Styles */
+.glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+  background: rgba(28, 28, 28, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(192, 57, 43, 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(192, 57, 43, 0.6);
+}
+
+/* Card Hover Animation Utilities */
+.pizza-card-shadow {
+  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.08);
+}
+
+.pizza-card-shadow:hover {
+  box-shadow: 0 20px 40px -15px rgba(192, 57, 43, 0.15);
+}
+
+/* Neon Red Pulse animation for live updates */
+@keyframes pulseRed {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: .5;
+    transform: scale(1.05);
+  }
+}
+
+.pulse-red {
+  animation: pulseRed 2s infinite ease-in-out;
+}
